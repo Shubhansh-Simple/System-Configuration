@@ -3,12 +3,15 @@
 "----------------------------------- 
 call plug#begin('~/.vim/plugged')
 
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
-
 " TESTING Jsx
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'mxw/vim-jsx'
+
+" THEME
+"Neovim theme"
+Plug 'joshdick/onedark.vim'
 
 " Html automatic closing tag
 Plug 'alvan/vim-closetag'
@@ -36,26 +39,23 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
-"Vim's Normal-Insert-Visual Airlines
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-
 " Plugin Ends
 call plug#end()
 
 " For devicons
 set encoding=UTF-8   
 
-" coc config
+" coc config - Enable Servers
 let g:coc_global_extensions = [
 \ 'coc-snippets',
-\ 'coc-tsserver',
-\ 'coc-eslint', 
 \ 'coc-json', 
+\ 'coc-tsserver',
+\ 'coc-prettier', 
 \ 'coc-pairs',
 \ ]
-"\ 'coc-prettier', 
- 
+"\ 'coc-eslint', 
+
+
 "------------------------------ 
 " Vim General Settings
 "------------------------------ 
@@ -64,14 +64,15 @@ let g:coc_global_extensions = [
 " to relod .vimrc ( without restarting vim )
 :command VIMRC :source $MYVIMRC
 
-"colo seoul256    " /usr/share/vim/vim82/colors/silenthill.vim
-colo gruvbox    " /usr/share/vim/vim82/colors/silenthill.vim
+colo onedark    " /usr/share/vim/vim82/colors/silenthill.vim
+set backupcopy=yes
 set background=dark
 set hlsearch      " Highlight all search results
 set smartcase     " Enable smart-case search
 set ignorecase    " Always case-insensitive
 set incsearch     " Searches for strings incrementally
 set smartindent
+
 syntax on
 set autoindent    " Auto-indent new lines
 set cindent       " Use 'C' style program indenting
@@ -85,12 +86,13 @@ set nonumber
 set mouse=a
 set cursorline
 set cursorcolumn
-set linebreak   " Break lines at word (requires Wrap lines)
-set showbreak=-->   " Wrap-broken line prefix
-"set textwidth=80    " Line wrap (number of cols)
-set showmatch   " Highlight matching brace
-"set errorbells  " Beep or flash screen on errors
-"set visualbell  " Use visual bell (no beeping))""")"")"
+set linebreak     " Break lines at word (requires Wrap lines)
+set laststatus=0  "No footer line 
+set showbreak=--> " Wrap-broken line prefix
+"set textwidth=80 " Line wrap (number of cols)
+set showmatch     " Highlight matching brace
+"set errorbells   " Beep or flash screen on errors
+"set visualbell   " Use visual bell (no beeping))""")"")"
 set shortmess+=c
 
 " For Controlling Autocomplete 
@@ -122,7 +124,7 @@ set backspace=indent,eol,start    " Backspace behaviour""">
 
 " TESTING
 set nocompatible
-let g:jsx_ext_required=0
+" let g:jsx_ext_required=0
 
 
 "Cursor on diff mode
@@ -148,6 +150,18 @@ nmap <F6> :NERDTreeToggle <CR>
 let NERDTreeMapOpenInTab='\r'
 autocmd BufRead,BufNewFile *.py,html syntax on''>>
 
+" Syntax highlight
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+" Fix identitation on filetypes
+autocmd FileType javascriptreact setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType typescriptreact setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType javascript      setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType typescript      setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType conf            setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType json            setlocal ts=2 sts=2 sw=2 expandtab
+
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -166,7 +180,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 "unlet themes
 
 
-" NOREMAP COMMAND FOR VIM
+" NOREMAP COMMAND FOR VIM ( HELPING )
 "
 "<CR> means Enter key
 "<Esc means Escape key
@@ -184,7 +198,7 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 "Delete entire file content
-noremap <S-d> :%d <CR>
+noremap <C-x> :%d <CR>
 
 " Background Colour change mapping
 nnoremap <silent> <C-l> :set background=light<CR>
@@ -211,12 +225,12 @@ inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
 "
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
+"let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 "
-let g:closetag_filetypes = 'html,xhtml,phtml,js'
+"let g:closetag_filetypes = 'html,xhtml,phtml,js'
 
 
 " Open vertical tab
