@@ -10,8 +10,8 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'mxw/vim-jsx'
 
 " THEME
-"Neovim theme"
-Plug 'joshdick/onedark.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'n1ghtmare/noirblaze-vim'
 
 " Html automatic closing tag
 Plug 'alvan/vim-closetag'
@@ -64,7 +64,9 @@ let g:coc_global_extensions = [
 " to relod .vimrc ( without restarting vim )
 :command VIMRC :source $MYVIMRC
 
-colo onedark    " /usr/share/vim/vim82/colors/silenthill.vim
+colo gruvbox    " /usr/share/vim/vim82/colors/silenthill.vim
+syntax on
+set so=3        " Cusor will be 3 lines from top and bottom while scrolling
 set backupcopy=yes
 set background=dark
 set hlsearch      " Highlight all search results
@@ -72,8 +74,7 @@ set smartcase     " Enable smart-case search
 set ignorecase    " Always case-insensitive
 set incsearch     " Searches for strings incrementally
 set smartindent
-
-syntax on
+set splitright
 set autoindent    " Auto-indent new lines
 set cindent       " Use 'C' style program indenting
 set expandtab     " Use spaces instead of tabs
@@ -105,8 +106,9 @@ set cmdheight=1
 " delays and poor user experience.
 set updatetime=300
 
-" We just hiding toolbar and menubar
+" (GVIM GUI )We just hiding toolbar and menubar
 set guioptions-=m  "menu bar
+set guifont=Monaco\ Regular\ 11
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
 
@@ -192,10 +194,18 @@ nmap <silent> gi <Plug>(coc-implementation)
 " Setting shortcut for FZF
 nmap <silent> <C-f> :FZF<CR>
 
-"Tabs
+"TABS
+" Tab to new tab switch
 nnoremap <Tab> gt
+" Shift+Tab to new tab switch
 nnoremap <S-Tab> gT
+" Shift+t to open new tab
 nnoremap <silent> <S-t> :tabnew<CR>
+" Go to tab by number
+" noremap <silent>1 1gt 
+" noremap <silent>2 2gt 
+" noremap <silent>3 3gt 
+" noremap <silent>4 4gt 
 
 "Delete entire file content
 noremap <C-x> :%d <CR>
@@ -287,6 +297,19 @@ autocmd filetype c,cpp
       \rm %.out 
       \<CR>
 
+" Compile and Run C,C++ program directly
+" Note : % means current file name
+autocmd filetype python 
+      \noremap <F5> 
+      \<Esc> :w <CR> 
+      \:!clear && 
+      \printf "Running %...\n" && 
+      \printf "________________________\n\n" && 
+      \sleep .5 && 
+      \python3 % && 
+      \sleep .2 && 
+      \printf "\n\nExecuted Successfully\! \n\n" 
+      \<CR>
 
 " Working Code ( in case of break )
 "autocmd filetype c 
@@ -314,6 +337,13 @@ autocmd filetype c,cpp
 "     \<CR>
 
 
+"----------PYLINT CONFIG FOR DJANGO PROJECT
+
+" Pylint configuration for Django projects
+let g:pylint_cmd = 'pylint --load-plugins pylint_django'
+
+" Highlight only errors and warnings
+let g:pylint_highlight_only_errors = 1
 
 
 
