@@ -3,13 +3,25 @@
 # OBSERVATION
 # Auto called file by the system (recognized by his name)
 # But the name of the file should be same as defined
-alias boom='echo "Wait for 10 seconds" ; sleep 10s; echo "Wait complete" ; sleep 2s'
+
+# Python Development
+alias ENV='pipenv shell'
+alias DIR='cd ~/Desktop/ticket-management/'
+alias DEV='DIR && ENV'
+alias RUN='python manage.py runserver 192.168.10.5:8000'
+alias SHELL='python manage.py shell'
+alias MAKE='python manage.py makemigrations'
+alias MIGRATE='python manage.py migrate'
+alias TEST='python manage.py test'
+alias kitty2='DIR && kitty --config=/home/shubhansh/.config/kitty/kitty.conf --config=/home/shubhansh/.config/kitty/current-theme-pink.conf & disown'
+alias L='clear;ls'
+
 
 # UPDATE DEFAULT COMMANDS
 alias ls='ls --color -h --group-directories-first'
 alias cp='rsync -aP' # Show progess with coping
 alias cal='ncal -b'  # Highlight today's date
-alias vim='vim -p'  # Highlight today's date
+alias vim='vim -p'   # Can pass multiple files names to open in new tabs
 
 # CUSTOM COMMANDS
 
@@ -25,9 +37,13 @@ alias nav='source ranger'
 alias volume-up='amixer -D pulse sset Master 10%+'      # Increase the system volume
 alias volume-down='amixer -D pulse sset Master 10%-'    # Decrease the system volume
 
+# CLEAR SCREEN
+alias C='clear'
+
 alias off='xset dpms force off'                    # Turn off the screen
 
-alias cfolder='cd ~/Desktop/C-Programming/'
+#alias project='cd ~/Desktop/Accredian-Assignment/accredian-frontend-task/'
+alias project='cd ~/Desktop/SkillStreet/'
 
 # ALIAS For C EXECUTION
 function run(){
