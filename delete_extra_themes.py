@@ -1,5 +1,6 @@
 import os
 
+# Default unused themes names of vim
 delete_theme_db = {
     "blue.vim" : 1,
     "darkblue.vim" : 1,
@@ -22,6 +23,7 @@ delete_theme_db = {
     "zellner.vim" : 1,
 }
 
+# Delete all vim's themes in current working directory
 for each_theme in os.listdir():
     if each_theme.endswith(".vim") and \
             delete_theme_db.get(each_theme):
